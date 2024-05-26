@@ -7,15 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ColorMapper {
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public ColorDTO toDTO(ColorEntity color) {
-        return modelMapper.map(color, ColorDTO.class);
-    }
-
-    public ColorEntity toEntity(ColorDTO dto) {
-        return modelMapper.map(dto, ColorEntity.class);
-    }
+public class ColorMapper extends BaseConversion<ColorDTO, ColorEntity> {
+       public ColorMapper() {
+           super(ColorDTO.class, ColorEntity.class);
+       }
 }

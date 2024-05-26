@@ -7,16 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BannerMapper {
-    @Autowired
-    private ModelMapper modelMapper;
+public class BannerMapper extends BaseConversion<BannerDTO, BannerEntity> {
 
-    public BannerDTO toDTO(BannerEntity banner) {
-        return modelMapper.map(banner, BannerDTO.class);
+    public BannerMapper() {
+        super(BannerDTO.class, BannerEntity.class);
     }
-
-    public BannerEntity toEntity(BannerDTO dto) {
-        return modelMapper.map(dto, BannerEntity.class);
-    }
-
 }

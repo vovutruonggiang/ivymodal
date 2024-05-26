@@ -7,15 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductImageMapper {
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public ProductImageEntity toEntity(ProductImageDTO dto) {
-        return modelMapper.map(dto, ProductImageEntity.class);
-    }
-
-    public ProductImageDTO toDTO(ProductImageEntity entity) {
-        return modelMapper.map(entity, ProductImageDTO.class);
+public class ProductImageMapper extends BaseConversion<ProductImageDTO, ProductImageEntity> {
+    public ProductImageMapper() {
+        super(ProductImageDTO.class, ProductImageEntity.class);
     }
 }

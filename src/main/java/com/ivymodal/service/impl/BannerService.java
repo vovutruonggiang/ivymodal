@@ -3,6 +3,7 @@ package com.ivymodal.service.impl;
 import com.ivymodal.dto.BannerDTO;
 import com.ivymodal.entity.BannerEntity;
 import com.ivymodal.mapper.BannerMapper;
+import com.ivymodal.mapper.BaseConversion;
 import com.ivymodal.repository.BannerRepository;
 import com.ivymodal.service.IBannerService;
 import org.springframework.beans.factory.annotation.Autowired;

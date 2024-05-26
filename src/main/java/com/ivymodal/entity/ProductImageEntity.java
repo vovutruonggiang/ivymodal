@@ -6,12 +6,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 @Entity
-@Table(name = "productImage")
+@Table(name = "product_image")
 public class ProductImageEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "id_product")

@@ -9,16 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CategoryMapper {
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public CategoryDTO toDTO(CategoryEntity categoryEntity) {
-        return modelMapper.map(categoryEntity, CategoryDTO.class);
-    }
-
-    public CategoryEntity toEntity(CategoryDTO dto) {
-        return modelMapper.map(dto, CategoryEntity.class);
+public class CategoryMapper extends BaseConversion<CategoryDTO, CategoryEntity> {
+    public CategoryMapper() {
+        super(CategoryDTO.class, CategoryEntity.class);
     }
 
 }

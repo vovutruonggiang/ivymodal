@@ -16,6 +16,7 @@ import java.util.List;
 public class CategoryEntity extends BaseEntity{
     String menu_title;
     String menu_link;
+    int menu_parent_id;
 
     @OneToMany(mappedBy = "category")
     List<ProductEntity> products;

@@ -13,15 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ProductVariantMapper {
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public ProductVariantEntity toEntity(ProductVariantDTO dto) {
-        return modelMapper.map(dto, ProductVariantEntity.class);
-    }
-
-    public ProductVariantDTO toDTO(ProductVariantEntity entity) {
-        return modelMapper.map(entity, ProductVariantDTO.class);
-    }
+public class ProductVariantMapper extends BaseConversion<ProductVariantDTO, ProductVariantEntity> {
+   public ProductVariantMapper() {
+       super(ProductVariantDTO.class, ProductVariantEntity.class);
+   }
 }

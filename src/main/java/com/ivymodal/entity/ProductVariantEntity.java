@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 @Entity
-@Table(name = "productVariant")
+@Table(name = "product_variant")
 public class ProductVariantEntity extends BaseEntity{
     Double price;
     Boolean status;

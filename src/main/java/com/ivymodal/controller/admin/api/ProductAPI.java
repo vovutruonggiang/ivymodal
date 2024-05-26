@@ -12,12 +12,17 @@ public class ProductAPI {
     private ProductService productService;
 
     @PostMapping
-    public ProductWithVariantsDTO createProductWithVariants(@RequestBody ProductWithVariantsDTO productWithVariantsDTO) {
-        return productService.createProduct(0,productWithVariantsDTO);
+    public ProductWithVariantsDTO createProduct(@RequestBody ProductWithVariantsDTO productWithVariantsDTO) {
+        return productService.createProduct(productWithVariantsDTO);
     }
 
     @PutMapping("/{id}")
     public ProductWithVariantsDTO updateProduct(@RequestBody ProductWithVariantsDTO productWithVariantsDTO,@PathVariable int id) {
         return productService.updateProduct(id, productWithVariantsDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable int id) {
+        productService.deleteProduct(id);
     }
 }
