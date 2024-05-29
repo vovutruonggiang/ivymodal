@@ -1,46 +1,61 @@
 package com.ivymodal.service.impl;
 
-import com.ivymodal.dto.SizeDTO;
-import com.ivymodal.entity.SizeEntity;
+import com.ivymodal.dto.Size.request.SizeRequest;
+import com.ivymodal.dto.Size.response.SizeResponse;
+import com.ivymodal.entity.Size;
+import com.ivymodal.exception.AppException;
+import com.ivymodal.exception.ErrorCode;
 import com.ivymodal.mapper.SizeMapper;
 import com.ivymodal.repository.SizeRepository;
 import com.ivymodal.service.ISizeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
 public class SizeService implements ISizeService {
-    @Autowired
-    private SizeRepository sizeRepository;
-    @Autowired
-    private SizeMapper sizeMapper;
+
+    SizeRepository sizeRepository;
+    SizeMapper sizeMapper;
 
     @Override
-    public SizeDTO createSize(SizeDTO sizeDTO) {
-        SizeEntity Size = sizeMapper.toEntity(sizeDTO);
-        Size = sizeRepository.save(Size);
-        return sizeMapper.toDTO(Size);
+    public List<SizeResponse> getAllSizes() {
+        return sizeRepository.findAll()
+                .stream()
+                .map(sizeMapper::toSizeResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public SizeDTO updateSize(int id, SizeDTO SizeDTO) {
-        SizeEntity Size = sizeMapper.toEntity(SizeDTO);
-        Size.setId(id);
-        Size = sizeRepository.save(Size);
-        return sizeMapper.toDTO(Size);
+    public SizeResponse getOneSize(String sizeId) {
+        return sizeMapper.toSizeResponse(sizeRepository.findById(sizeId).orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND)));
     }
 
     @Override
-    public void deleteSize(int id) {
-        sizeRepository.deleteById(id);
+    public SizeResponse createSize(SizeRequest request) {
+        if (sizeRepository.existsByName(request.getName()))
+            throw new AppException(ErrorCode.SIZE_EXISTED);
+        Size size = sizeMapper.toSize(request);
+        return sizeMapper.toSizeResponse(sizeRepository.save(size));
     }
 
     @Override
-    public List<SizeDTO> getAllSizes() {
-        List<SizeEntity> Size = sizeRepository.findAll();
-        return Size.stream().map(sizeMapper::toDTO).collect(Collectors.toList());
+    public SizeResponse updateSize(String sizeId, SizeRequest request) {
+        Size size = sizeRepository.findById(sizeId).orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
+        sizeMapper.updateSize(size,request);
+        return sizeMapper.toSizeResponse(sizeRepository.save(size));
+    }
+
+    @Override
+    public void deleteSize(String[] sizeId) {
+        for (String size :sizeId){
+            sizeRepository.deleteById(size);
+        }
     }
 }

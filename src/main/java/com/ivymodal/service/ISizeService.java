@@ -1,11 +1,14 @@
 package com.ivymodal.service;
-import com.ivymodal.dto.SizeDTO;
+import com.ivymodal.dto.Size.request.SizeRequest;
+import com.ivymodal.dto.Size.response.SizeResponse;
 
 import java.util.List;
 
 public interface ISizeService {
-    SizeDTO createSize(SizeDTO sizeDTO);
-    SizeDTO updateSize(int id, SizeDTO sizeDTO);
-    void deleteSize(int id);
-    List<SizeDTO> getAllSizes();
+    List<SizeResponse> getAllSizes();
+    SizeResponse getOneSize(String sizeId);
+    SizeResponse createSize(SizeRequest request);
+    SizeResponse updateSize(String sizeId, SizeRequest request);
+    void deleteSize(String[] sizeId);
+
 }

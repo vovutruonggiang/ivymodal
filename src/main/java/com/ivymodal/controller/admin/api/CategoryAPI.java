@@ -1,30 +1,57 @@
 package com.ivymodal.controller.admin.api;
 
-import com.ivymodal.dto.CategoryDTO;
-import com.ivymodal.entity.CategoryEntity;
-import com.ivymodal.mapper.CategoryMapper;
-import com.ivymodal.service.impl.CategoryService;
+import com.ivymodal.dto.ApiResponse;
+import com.ivymodal.dto.Category.request.CategoryDeleteRequest;
+import com.ivymodal.dto.Category.request.CategoryRequest;
+import com.ivymodal.dto.Category.response.CategoryResponse;
+import com.ivymodal.service.ICategoryService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api-admin-category")
 public class CategoryAPI {
     @Autowired
-    private CategoryService categoryService;
+    private ICategoryService categoryService;
+
+    @GetMapping
+    public ApiResponse<List<CategoryResponse>> getAllCategories(){
+        ApiResponse<List<CategoryResponse>> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(categoryService.getAllCategories());
+        return apiResponse;
+    }
+
+    @GetMapping("/{categoryId}")
+    public ApiResponse<CategoryResponse> getCategoryById(@PathVariable("categoryId") String categoryId){
+        ApiResponse<CategoryResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(categoryService.getOneCategory(categoryId));
+        return apiResponse;
+    }
 
     @PostMapping
-    public CategoryDTO createCategory(@RequestBody CategoryDTO category) {
-        return categoryService.createCategory(category);
+    ApiResponse<CategoryResponse> createCategory(@RequestBody CategoryRequest request) {
+        ApiResponse<CategoryResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(categoryService.createCategory(request));
+        return apiResponse;
     }
 
-    @PutMapping("/{id}")
-    public CategoryDTO updateCategory(@PathVariable int id, @RequestBody CategoryDTO category) {
-        return categoryService.updateCategory(id, category);
+    @PutMapping("/{categoryId}")
+    public ApiResponse<CategoryResponse> updateCategory(@PathVariable ("categoryId") String categoryId, @RequestBody CategoryRequest request) {
+        ApiResponse<CategoryResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(categoryService.updateCategory(categoryId, request));
+        return apiResponse;
     }
 
-    @DeleteMapping("/delete")
-    public void deleteCategory(@RequestBody CategoryDTO categoryDTO) {
-        categoryService.deleteCategory(categoryDTO.getIds());
+    @DeleteMapping
+    public ApiResponse<Void> deleteCategory(@RequestBody CategoryDeleteRequest request) {
+        ApiResponse<Void> apiResponse = new ApiResponse<>();
+        categoryService.deleteCategory(request.getIds());
+        apiResponse.setMessage("delete success");
+        return apiResponse;
     }
 }

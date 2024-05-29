@@ -1,9 +1,10 @@
 package com.ivymodal.service;
 
-import com.ivymodal.dto.ProductWithVariantsDTO;
+import com.ivymodal.dto.ProductVariantImages.request.ProductVariantImagesRequest;
+import com.ivymodal.dto.ProductVariantImages.response.ProductVariantImagesResponse;
+
+import java.util.List;
 
 public interface IProductService {
-    ProductWithVariantsDTO createProduct(ProductWithVariantsDTO productWithVariantsDTO);
-    ProductWithVariantsDTO updateProduct(int id, ProductWithVariantsDTO productWithVariantsDTO);
-    void deleteProduct(int id);
+    ProductVariantImagesResponse createProduct(ProductVariantImagesRequest request);
 }

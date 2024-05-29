@@ -1,14 +1,16 @@
 package com.ivymodal.mapper;
 
-import com.ivymodal.dto.SizeDTO;
-import com.ivymodal.entity.SizeEntity;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.ivymodal.dto.Size.request.SizeRequest;
+import com.ivymodal.dto.Size.response.SizeResponse;
+import com.ivymodal.entity.Size;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
-@Component
-public class SizeMapper extends BaseConversion<SizeDTO,SizeEntity> {
-    public SizeMapper() {
-        super(SizeDTO.class, SizeEntity.class);
-    }
+@Mapper(componentModel = "spring")
+public interface SizeMapper {
+    Size toSize(SizeRequest request);
+
+    SizeResponse toSizeResponse(Size size);
+
+    void updateSize(@MappingTarget Size size, SizeRequest request);
 }

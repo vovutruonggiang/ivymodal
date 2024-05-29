@@ -1,35 +1,56 @@
 package com.ivymodal.controller.admin.api;
 
-import com.ivymodal.dto.SizeDTO;
+import com.ivymodal.dto.ApiResponse;
+import com.ivymodal.dto.Size.request.SizeDeleteRequest;
+import com.ivymodal.dto.Size.request.SizeRequest;
+import com.ivymodal.dto.Size.response.SizeResponse;
 import com.ivymodal.service.ISizeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api-admin-size")
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
 public class SizeAPI {
-    @Autowired
-    private ISizeService SizeService;
 
-    @PostMapping
-    public SizeDTO createSize(@RequestBody SizeDTO SizeDTO) {
-        return SizeService.createSize(SizeDTO);
-    }
-
-    @PutMapping("/{id}")
-    public SizeDTO updateSize(@PathVariable int id, @RequestBody SizeDTO SizeDTO) {
-        return SizeService.updateSize(id, SizeDTO);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteSize(@PathVariable int id) {
-        SizeService.deleteSize(id);
-    }
+    ISizeService sizeService;
 
     @GetMapping
-    public List<SizeDTO> getAllSizes() {
-        return SizeService.getAllSizes();
+    public ApiResponse<List<SizeResponse>> getAllSizes(){
+        ApiResponse<List<SizeResponse>> sizeResponse = new ApiResponse<>();
+        sizeResponse.setResult(sizeService.getAllSizes());
+        return sizeResponse;
     }
+
+    @GetMapping("/{sizeId}")
+    public ApiResponse<SizeResponse> getOneSize(@PathVariable String sizeId){
+        ApiResponse<SizeResponse> sizeResponse = new ApiResponse<>();
+        sizeResponse.setResult(sizeService.getOneSize(sizeId));
+        return sizeResponse;
+    }
+
+    @PostMapping
+    public ApiResponse<SizeResponse> createSize(@RequestBody SizeRequest request){
+        ApiResponse<SizeResponse> sizeResponse = new ApiResponse<>();
+        sizeResponse.setResult(sizeService.createSize(request));
+        return sizeResponse;
+    }
+
+    @PutMapping("/{sizeId}")
+    public ApiResponse<SizeResponse> updateSize(@RequestBody SizeRequest request,@PathVariable String sizeId){
+        ApiResponse<SizeResponse> sizeResponse = new ApiResponse<>();
+        sizeResponse.setResult(sizeService.updateSize(sizeId,request));
+        return sizeResponse;
+    }
+
+    @DeleteMapping
+    public void deleteSize(@RequestBody SizeDeleteRequest request){
+        sizeService.deleteSize(request.getIds());
+    }
+
 }

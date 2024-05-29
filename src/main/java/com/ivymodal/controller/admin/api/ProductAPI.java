@@ -1,28 +1,28 @@
 package com.ivymodal.controller.admin.api;
 
-import com.ivymodal.dto.ProductWithVariantsDTO;
+import com.ivymodal.dto.ApiResponse;
+import com.ivymodal.dto.ProductVariantImages.request.ProductVariantImagesRequest;
+import com.ivymodal.dto.ProductVariantImages.response.ProductVariantImagesResponse;
 import com.ivymodal.service.impl.ProductService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api-admin-product")
+//@FieldDefaults(level = AccessLevel.PRIVATE)
+//@RequiredArgsConstructor
 public class ProductAPI {
     @Autowired
     private ProductService productService;
 
     @PostMapping
-    public ProductWithVariantsDTO createProduct(@RequestBody ProductWithVariantsDTO productWithVariantsDTO) {
-        return productService.createProduct(productWithVariantsDTO);
+    public ApiResponse<ProductVariantImagesResponse> createProduct(@RequestBody ProductVariantImagesRequest request) {
+        ApiResponse<ProductVariantImagesResponse> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(productService.createProduct(request));
+        return apiResponse;
     }
 
-    @PutMapping("/{id}")
-    public ProductWithVariantsDTO updateProduct(@RequestBody ProductWithVariantsDTO productWithVariantsDTO,@PathVariable int id) {
-        return productService.updateProduct(id, productWithVariantsDTO);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable int id) {
-        productService.deleteProduct(id);
-    }
 }

@@ -1,20 +1,22 @@
 package com.ivymodal.mapper;
 
-import com.ivymodal.dto.ProductDTO;
-import com.ivymodal.dto.ProductVariantDTO;
-import com.ivymodal.entity.ProductEntity;
-import com.ivymodal.entity.ProductVariantEntity;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.ivymodal.dto.ProductVariant.request.ProductVariantRequest;
+import com.ivymodal.dto.ProductVariant.response.ProductVariantResponse;
+import com.ivymodal.entity.ProductVariant;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Component
-public class ProductVariantMapper extends BaseConversion<ProductVariantDTO, ProductVariantEntity> {
-   public ProductVariantMapper() {
-       super(ProductVariantDTO.class, ProductVariantEntity.class);
-   }
+@Mapper(componentModel = "spring")
+public interface ProductVariantMapper {
+    ProductVariant toProductVariant(ProductVariantRequest request);
+
+    ProductVariantResponse toProductVariantResponse(ProductVariant productVariant);
+
+    List<ProductVariant> toProductVariantList(List<ProductVariantRequest> requests);
+
+    List<ProductVariantResponse> toProductVariantResponseList(List<ProductVariant> productVariantList);
+
+    void updateProductVariant(@MappingTarget ProductVariant productVariant, ProductVariantRequest productVariantRequest);
 }
