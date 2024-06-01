@@ -4,13 +4,15 @@ import com.ivymodal.dto.ProductImages.request.ProductImagesRequest;
 import com.ivymodal.dto.ProductImages.response.ProductImagesResponse;
 import com.ivymodal.entity.ProductImage;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.Mapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProductImageMapper {
-    ProductImage toProductImage(ProductImagesRequest request);
+    List<ProductImage> toProductImagesList(List<ProductImagesRequest> requests);
 
-    ProductImagesResponse toProductImagesResponse(ProductImagesResponse response);
+    List<ProductImagesResponse> toProductImagesResponseList(List<ProductImage> productImages);
 
-    void updateProductImage(@MappingTarget ProductImage productImage,ProductImagesRequest request);
 }

@@ -8,10 +8,11 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductVariantImagesResponse{
-    ProductResponse product;
+public class ProductListResponse {
+    List<ProductResponse> product;
     List<ProductVariantResponse> productVariant;
-    List<ProductImagesResponse> productVariantImages;
+    List<ProductImagesResponse> productImages;
 }
