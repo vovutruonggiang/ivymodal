@@ -10,7 +10,6 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductImagesResponse extends BaseDTO {
-    ProductResponse product;
     ColorResponse color;
     String image_url;
 }

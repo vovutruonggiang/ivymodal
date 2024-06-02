@@ -1,11 +1,17 @@
 package com.ivymodal.service;
 
-import com.ivymodal.dto.ProductVariantImages.request.ProductVariantImagesRequest;
-import com.ivymodal.dto.ProductVariantImages.response.ProductListResponse;
-import com.ivymodal.dto.ProductVariantImages.response.ProductVariantImagesResponse;
+import com.ivymodal.dto.Product.request.ProductRequest;
+import com.ivymodal.dto.Product.response.ProductResponse;
+
+import java.util.List;
 
 public interface IProductService {
-    ProductVariantImagesResponse createProduct(ProductVariantImagesRequest request);
-    ProductVariantImagesResponse updateProduct(String productId,ProductVariantImagesRequest request);
-    ProductListResponse getProductList();
+    ProductResponse createProduct(ProductRequest request);
+    ProductResponse updateProduct(String productId,ProductRequest request);
+    List<ProductResponse> getAllProduct();
+    List<ProductResponse> getOneProduct(String productId);
+    void DeleteVariant(String[] imagesIds,String[] variantIds);
+    void DeleteProduct(String[] productIds);
+
+
 }

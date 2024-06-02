@@ -11,7 +11,6 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductVariantResponse extends BaseDTO {
-    ProductResponse product;
     ColorResponse color;
     SizeResponse size;
     Double price;

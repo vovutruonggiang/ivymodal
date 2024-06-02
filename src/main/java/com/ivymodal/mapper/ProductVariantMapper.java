@@ -11,6 +11,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProductVariantMapper {
+    ProductVariantResponse toProductVariantResponse(ProductVariant productVariant);
+
     List<ProductVariant> toProductVariantList(List<ProductVariantRequest> requests);
 
     List<ProductVariantResponse> toProductVariantResponseList(List<ProductVariant> productVariantList);

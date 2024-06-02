@@ -1,14 +1,14 @@
 package com.ivymodal.controller.admin.api;
 
 import com.ivymodal.dto.ApiResponse;
+import com.ivymodal.dto.Product.request.ProductDeleteRequest;
+import com.ivymodal.dto.Product.request.ProductRequest;
 import com.ivymodal.dto.Product.response.ProductResponse;
 import com.ivymodal.dto.ProductVariantImages.request.ProductVariantImagesRequest;
-import com.ivymodal.dto.ProductVariantImages.response.ProductListResponse;
 import com.ivymodal.dto.ProductVariantImages.response.ProductVariantImagesResponse;
+import com.ivymodal.entity.Product;
+import com.ivymodal.entity.ProductVariant;
 import com.ivymodal.service.impl.ProductService;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,24 +23,46 @@ public class ProductAPI {
     private ProductService productService;
 
     @PostMapping
-    public ApiResponse<ProductVariantImagesResponse> createProduct(@RequestBody ProductVariantImagesRequest request) {
-        ApiResponse<ProductVariantImagesResponse> apiResponse = new ApiResponse<>();
+    public ApiResponse<ProductResponse> createProduct(@RequestBody ProductRequest request) {
+        ApiResponse<ProductResponse> apiResponse = new ApiResponse<>();
         apiResponse.setResult(productService.createProduct(request));
         return apiResponse;
     }
 
     @PutMapping("/{productId}")
-    public ApiResponse<ProductVariantImagesResponse> updateProduct(@PathVariable("productId") String productId,@RequestBody ProductVariantImagesRequest request){
-        ApiResponse<ProductVariantImagesResponse> apiResponse = new ApiResponse<>();
+    public ApiResponse<ProductResponse> updateProduct(@PathVariable("productId") String productId,@RequestBody ProductRequest request){
+        ApiResponse<ProductResponse> apiResponse = new ApiResponse<>();
         apiResponse.setResult(productService.updateProduct(productId, request));
         return apiResponse;
     }
 
     @GetMapping
-    public ApiResponse<ProductListResponse> getAllProduct(){
-        ApiResponse<ProductListResponse>apiResponse = new ApiResponse<>();
-        apiResponse.setResult(productService.getProductList());
+    public ApiResponse<List<ProductResponse>> getAllProduct(){
+        ApiResponse<List<ProductResponse>>apiResponse = new ApiResponse<>();
+        apiResponse.setResult(productService.getAllProduct());
         return apiResponse;
     }
 
+    @GetMapping("{productId}")
+    public ApiResponse<List<ProductResponse>> getOneProduct(@PathVariable ("productId") String productId){
+        ApiResponse<List<ProductResponse>>apiResponse = new ApiResponse<>();
+        apiResponse.setResult(productService.getOneProduct(productId));
+        return apiResponse;
+    }
+
+    @DeleteMapping("/delete-variant")
+    public ApiResponse<ProductResponse> deleteVariant(@RequestBody ProductDeleteRequest request){
+        ApiResponse<ProductResponse> apiResponse = new ApiResponse<>();
+        productService.DeleteVariant(request.getImagesIds(), request.getVariantIds());
+        apiResponse.setMessage("Delete success");
+        return apiResponse;
+    }
+
+    @DeleteMapping("/delete-product")
+    public ApiResponse<ProductResponse> deleteProduct(@RequestBody ProductDeleteRequest request){
+        ApiResponse<ProductResponse> apiResponse = new ApiResponse<>();
+        productService.DeleteProduct(request.getProductIds());
+        apiResponse.setMessage("Delete success");
+        return apiResponse;
+    }
 }

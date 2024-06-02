@@ -4,5 +4,7 @@ import lombok.Data;
 
 @Data
 public class ProductDeleteRequest {
-    private String [] ids;
+    private String[] productIds;
+    private String[] variantIds;
+    private String[] imagesIds;
 }

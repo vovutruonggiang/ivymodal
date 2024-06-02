@@ -2,9 +2,7 @@ package com.ivymodal.mapper;
 
 import com.ivymodal.dto.Product.request.ProductRequest;
 import com.ivymodal.dto.Product.response.ProductResponse;
-import com.ivymodal.dto.ProductVariant.response.ProductVariantResponse;
 import com.ivymodal.entity.Product;
-import com.ivymodal.entity.ProductVariant;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ProductVariantRepository extends JpaRepository<ProductVariant, String> {
     List<ProductVariant> findByProductId(String productId);
+    ProductVariant findOneByProductId(String productId);
 }

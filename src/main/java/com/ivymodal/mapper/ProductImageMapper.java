@@ -11,6 +11,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProductImageMapper {
+    ProductImagesResponse toProductImagesResponse(ProductImage productImages);
+
     List<ProductImage> toProductImagesList(List<ProductImagesRequest> requests);
 
     List<ProductImagesResponse> toProductImagesResponseList(List<ProductImage> productImages);

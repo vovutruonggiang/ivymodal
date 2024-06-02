@@ -8,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductImagesRequest {
+public class ProductImagesRequest{
     ProductResponse product;
     ColorResponse color;
     String image_url;
