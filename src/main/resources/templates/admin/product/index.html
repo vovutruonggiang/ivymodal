@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="admin/fragments/head :: head"></head>
+<body class="no-skin">
+<div th:replace="admin/fragments/header :: header"></div>
+<style>
+    #drop-area {
+        width: 100px;
+        height: 149px;
+        padding: 1px;
+        background-color: #ffffff;
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    .img_view {
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+        border: 2px dashed #bbb5ff;
+        background-color: #f7f8ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .image-upload {
+        position: relative;
+        width: 250px; /* Kích thước khung hình chữ nhật */
+        height: 350px;
+        overflow: hidden; /* Ẩn phần ảnh vượt ra ngoài khung */
+        border: 2px dashed #bbb5ff; /* Đường viền khung */
+        border-radius: 10px; /* Đường viền cong */
+    }
+
+    .image-upload label {
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .preview-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .image-upload img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Hiển thị hình ảnh full khung */
+        object-position: center; /* Căn hình ảnh vào giữa khung */
+    }
+
+    .image-upload input {
+        display: none;
+    }
+
+    .preview-container .plus-sign {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 36px;
+        color: #bbb5ff; /* Màu của dấu cộng */
+        cursor: pointer;
+    }
+
+
+
+
+
+    .img-placeholder {
+        text-align: center;
+        margin-top: 10px;
+        color: #bbb5ff;
+    }
+
+    .img-placeholder span {
+        display: block;
+    }
+
+</style>
+<div class="main-container" id="main-container">
+    <div th:replace="admin/fragments/menu :: menu"></div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="container" style="margin: 20px 20px 20px 20px">
+                <div id="productForm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6" style="margin-top: 60px">
+                                <div class="form-group">
+                                    <label for="category1">Danh mục cấp 1:</label>
+                                    <select id="category1" class="form-control" onchange="loadCategory2()">
+                                        <option value="">Chọn danh mục cấp 1</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="category2-group" style="display:none;">
+                                    <label for="category2">Danh mục cấp 2:</label>
+                                    <select id="category2" class="form-control" onchange="loadCategory3()">
+                                        <option value="">Chọn danh mục cấp 2</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="category3-group" style="display: none;">
+                                    <label for="category3">Danh mục cấp 3:</label>
+                                    <select id="category3" class="form-control">
+                                        <option value="">Chọn danh mục cấp 3</option>
+                                    </select>
+                                </div>
+                                <input id="idCategory" value="" hidden="hidden">
+                                <div class="form-group">
+                                    <div style="margin-bottom: 30px;margin-left: 0px">
+                                        <label class="control-label" for="name">Tên sản phẩm</label>
+                                        <input type="text" id="name" name="name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div style="margin-bottom: 30px;margin-left: 0px">
+                                        <label class="control-label" for="description">Mô tả</label>
+                                        <textarea id="description" name="description"
+                                                  class="form-control"></textarea><br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="image-upload" style="margin-left: 30%; margin-top: 12%">
+                                    <label for="file-input">
+                                        <div class="preview-container">
+                                            <img id="preview"/>
+                                            <div class="plus-sign">+</div> <!-- Dấu cộng thay thế -->
+                                        </div>
+                                    </label>
+                                    <input id="file-input" type="file" accept="image/*"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="description">Tạo biến thể</label>
+                                <div class="form-group">
+                                    <button class="btn btn-success" type="button" onclick="createImagesForVariants()">Tạo hình cho các biến thể</button>
+                                </div>
+                                <div id="variant-images">
+                                    <!-- Nơi chứa hình ảnh của các biến thể -->
+                                </div>
+                                <div id="variants">
+                                    <!-- Nơi này sẽ chứa các biến thể -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button class="btn btn-success" type="button" onclick="addVariant()">Thêm biến thể</button>
+                                <button onclick="createProduct()" class="btn btn-info" type="submit">Thêm sản phẩm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="admin/fragments/footer :: footer"></footer>
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="fa fa-angle-double-up icon-only bigger-110 ace-icon"></i>
+    </a>
+</div>
+<script>
+    document.getElementById('file-input').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('preview').src = e.target.result;
+                document.querySelector('.preview-container .plus-sign').style.display = 'none'; // Ẩn dấu cộng khi đã có hình ảnh
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+<div th:replace="admin/fragments/script :: script"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script/product.js"></script>
+<script src="admin/app/product/product.js"></script>
+
+</body>
+</html>

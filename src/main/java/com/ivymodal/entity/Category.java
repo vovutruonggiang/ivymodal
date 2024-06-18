@@ -3,7 +3,7 @@ package com.ivymodal.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.Column;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -14,11 +14,13 @@ import java.util.List;
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "category")
-public class Category extends BaseEntity{
+public class Category extends BaseEntity {
     String name;
     String menu_link;
-    String menu_parent_id;
+
+    @Column(name = "menu_parent_id")
+    String menuParentId;
 
     @OneToMany(mappedBy = "category")
-    List<Product> product;
+    List<Product> products;
 }

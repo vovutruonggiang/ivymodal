@@ -5,6 +5,7 @@ import com.ivymodal.dto.Category.response.CategoryResponse;
 import com.ivymodal.entity.Category;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ICategoryService {
     List<CategoryResponse> getAllCategories();
@@ -12,4 +13,5 @@ public interface ICategoryService {
     CategoryResponse createCategory(CategoryRequest request);
     CategoryResponse updateCategory(String categoryId,CategoryRequest request);
     void deleteCategory(String[] categoryId);
+    Map<String, Map<String, List<Map<String, String>>>> getCategories();
 }

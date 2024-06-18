@@ -16,7 +16,9 @@ public class ProductResponse extends BaseDTO {
     String name;
     String description;
     String thumbnail;
+    Boolean isPromoted;
     CategoryResponse category;
     List<ProductVariantResponse> productVariants;
     List<ProductImagesResponse> productImages;
+
 }

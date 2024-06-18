@@ -3,6 +3,6 @@ package com.ivymodal.dto.Category.request;
 import lombok.Data;
 
 @Data
-public class CategoryDeleteRequest {
+public class    CategoryDeleteRequest {
     private String[] ids;
 }

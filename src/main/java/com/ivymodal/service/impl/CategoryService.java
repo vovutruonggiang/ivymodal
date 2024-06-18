@@ -14,7 +14,9 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,8 +40,8 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public CategoryResponse createCategory(CategoryRequest request) {
-        if (categoryRepository.existsByName(request.getName()))
-            throw new AppException(ErrorCode.CATEGORY_EXISTED);
+//        if (categoryRepository.existsByName(request.getName()))
+//            throw new AppException(ErrorCode.CATEGORY_EXISTED);
 
         Category category = categoryMapper.toCategory(request);
 
@@ -59,5 +61,36 @@ public class CategoryService implements ICategoryService {
         for (String category : categoryId) {
             categoryRepository.deleteById(category);
         }
+    }
+
+    @Override
+    public Map<String, Map<String, List<Map<String, String>>>> getCategories() {
+        Map<String, Map<String, List<Map<String, String>>>> result = new HashMap<>();
+
+        // Lấy danh mục cấp 1
+        List<Category> rootCategories = categoryRepository.findByMenuParentId("");
+        for (Category rootCategory : rootCategories) {
+            Map<String, List<Map<String, String>>> subCategoriesMap = new HashMap<>();
+
+            // Lấy danh mục cấp 2
+            List<Category> subCategories = categoryRepository.findByMenuParentId(rootCategory.getId());
+            for (Category subCategory : subCategories) {
+                // Lấy danh mục cấp 3
+                List<Category> items = categoryRepository.findByMenuParentId(subCategory.getId());
+                List<Map<String, String>> itemList = items.stream()
+                        .map(item -> {
+                            Map<String, String> itemMap = new HashMap<>();
+                            itemMap.put("id", item.getId());
+                            itemMap.put("name", item.getName());
+                            return itemMap;
+                        })
+                        .collect(Collectors.toList());
+                subCategoriesMap.put(subCategory.getMenu_link(), itemList);
+            }
+
+            result.put(rootCategory.getMenu_link(), subCategoriesMap);
+        }
+
+        return result;
     }
 }

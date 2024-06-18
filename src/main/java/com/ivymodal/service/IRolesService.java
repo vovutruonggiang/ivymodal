@@ -1,9 +1,10 @@
-//package com.ivymodal.service;
-//
-//import com.ivymodal.dto.RolesDTO;
-//
-//public interface IRolesService {
-//    RolesDTO createRole(RolesDTO rolesDTO);
-//    RolesDTO updateRole(int id,RolesDTO rolesDTO);
-//    void deleteRole(int id);
-//}
+package com.ivymodal.service;
+
+import com.ivymodal.dto.Roles.request.RolesRequest;
+import com.ivymodal.dto.Roles.response.RolesResponse;
+
+public interface IRolesService {
+    RolesResponse createRole(RolesRequest request);
+    RolesResponse updateRole(String rolesId,RolesRequest rolesDTO);
+    void deleteRole(String[] rolesId);
+}

@@ -2,7 +2,9 @@ package com.ivymodal.service.impl;
 
 import com.ivymodal.dto.Category.response.CategoryResponse;
 import com.ivymodal.dto.Product.request.ProductRequest;
+import com.ivymodal.dto.Product.response.ProductDiscountActiveResponse;
 import com.ivymodal.dto.Product.response.ProductResponse;
+import com.ivymodal.dto.Product.response.ProductDiscountWithoutActiveResponse;
 import com.ivymodal.dto.ProductImages.response.ProductImagesResponse;
 import com.ivymodal.dto.ProductVariant.response.ProductVariantResponse;
 import com.ivymodal.entity.Product;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
+@Transactional
 public class ProductService implements IProductService {
     ProductRepository productRepository;
     ProductMapper productMapper;
@@ -35,6 +38,18 @@ public class ProductService implements IProductService {
     ProductImageRepository productImageRepository;
     ProductImageMapper productImageMapper;
     CategoryMapper categoryMapper;
+
+    @Override
+    public List<ProductDiscountWithoutActiveResponse> getAllProductWithoutActiveDiscount() {
+        List<Product> products = productRepository.findByIsPromotedWithoutActiveDiscount();
+        return productMapper.toProductDiscountResponseList(products);
+    }
+
+    @Override
+    public List<ProductDiscountActiveResponse> getAllProductActiveDiscount() {
+        return productRepository.findPromotedProducts();
+    }
+
 
     @Override
     @Transactional
@@ -54,9 +69,6 @@ public class ProductService implements IProductService {
         for (int i = 0; i < productImages.size(); i++) {
             ProductImage productImage = productImages.get(i);
             productImage.setProduct(product);
-            if (i < productVariants.size()) {
-                productImage.setColor(productVariants.get(i).getColor());
-            }
         }
         productImageRepository.saveAll(productImages);
         return buildProductResponse(product, productVariants, productImages);

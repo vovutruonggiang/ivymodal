@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="admin/fragments/head :: head"></head>
+<link rel="stylesheet" href="admin/css/color_and_size.css"/>
+
+<body class="no-skin">
+<div th:replace="admin/fragments/header :: header"></div>
+
+<div class="main-container" id="main-container">
+    <div th:replace="admin/fragments/menu :: menu"></div>
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div style="margin: 20px 20px 20px 20px">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="container">
+                            <h1>Tạo màu mới</h1>
+                            <div class="color-picker">
+                                <h2>Chọn màu</h2>
+                                <input type="color" id="colorInput">
+                                <div class="color-preview" id="colorPreview"></div>
+                            </div>
+                            <div class="size-picker">
+                                <h2>Thông tin màu</h2>
+                                <label for="nameColor">Tên màu</label>
+                                <input type="text" id="nameColor" value="">
+                                <label for="colorCoding">Mã màu</label>
+                                <input type="text" id="colorCoding" value="">
+                                <button onclick="createColor()" class="btn btn-info" style="margin-top: 30px;float: right">Tạo màu</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-6">
+                            <div class="container">
+                                <h1>Tạo kích thước mới</h1>
+                                <div class="size-picker">
+                                    <h2>Thông tin kích thước</h2>
+                                    <label>Tên kích thước</label>
+                                    <input type="text" id="nameSize" value="">
+                                    <button onclick="createSize()" class="btn btn-info" style="margin-top: 30px;float: right">Tạo màu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-6">
+                        <button id="toggleEditColor" class="btn btn-primary">Bật/Tắt sửa</button>
+                        <h2 class="text-center">Bảng màu</h2>
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên màu</th>
+                                <th>Mã màu</th>
+                                <th style="text-align: center">Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody id="load_data_color">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <button id="toggleEditSize" class="btn btn-primary">Bật/Tắt sửa</button>
+                        <h2 class="text-center">Bảng kích thước</h2>
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên kích thước</th>
+                                <th style="text-align: center">Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody id="load_data_size">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="admin/fragments/footer :: footer"></footer>
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+    </a>
+</div>
+<script src="admin/app/color_and_size/color.js"></script>
+<script src="admin/app/color_and_size/size.js"></script>
+<script src="admin/javascript/color_and_size.js"></script>
+<div th:replace="admin/fragments/script :: script"></div>
+</body>
+</html>

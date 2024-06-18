@@ -1,6 +1,8 @@
 package com.ivymodal.service;
 
 import com.ivymodal.dto.Product.request.ProductRequest;
+import com.ivymodal.dto.Product.response.ProductDiscountActiveResponse;
+import com.ivymodal.dto.Product.response.ProductDiscountWithoutActiveResponse;
 import com.ivymodal.dto.Product.response.ProductResponse;
 
 import java.util.List;
@@ -12,6 +14,6 @@ public interface IProductService {
     List<ProductResponse> getOneProduct(String productId);
     void DeleteVariant(String[] imagesIds,String[] variantIds);
     void DeleteProduct(String[] productIds);
-
-
+    List<ProductDiscountWithoutActiveResponse> getAllProductWithoutActiveDiscount();
+    List<ProductDiscountActiveResponse> getAllProductActiveDiscount();
 }

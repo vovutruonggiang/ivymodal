@@ -10,5 +10,5 @@ import lombok.experimental.FieldDefaults;
 public class CategoryResponse extends BaseDTO {
     String name;
     String menu_link;
-    String menu_parent_id;
+    String menuParentId;
 }

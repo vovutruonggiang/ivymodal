@@ -1,7 +1,9 @@
 package com.ivymodal.mapper;
 
 import com.ivymodal.dto.Product.request.ProductRequest;
+import com.ivymodal.dto.Product.response.ProductDiscountActiveResponse;
 import com.ivymodal.dto.Product.response.ProductResponse;
+import com.ivymodal.dto.Product.response.ProductDiscountWithoutActiveResponse;
 import com.ivymodal.entity.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -15,7 +17,7 @@ public interface ProductMapper{
 
    ProductResponse toProductResponse(Product product);
 
-   List<ProductResponse> toProductResponseList(List<Product> products);
+   List<ProductDiscountWithoutActiveResponse> toProductDiscountResponseList(List<Product> products);
 
    void updateProduct(@MappingTarget Product product, ProductRequest request);
 }

@@ -1,52 +1,56 @@
-//package com.ivymodal.service.impl;
-//
-//import com.ivymodal.dto.BannerDTO;
-//import com.ivymodal.entity.BannerEntity;
-//import com.ivymodal.mapper.BannerMapper;
-//import com.ivymodal.repository.BannerRepository;
-//import com.ivymodal.service.IBannerService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.List;
-//import java.util.stream.Collectors;
-//
-//@Service
-//public class BannerService implements IBannerService {
-//    @Autowired
-//    private BannerRepository bannerRepository;
-//
-//    @Autowired
-//    private BannerMapper bannerMapper;
-//
-//    @Override
-//    public BannerDTO save(BannerDTO bannerDTO) {
-//        BannerEntity banner = bannerMapper.toEntity(bannerDTO);
-//        banner = bannerRepository.save(banner);
-//        return bannerMapper.toDTO(banner);
-//    }
-//
-//    @Override
-//    public BannerDTO update(int id, BannerDTO bannerDTO) {
-//        BannerEntity banner = bannerMapper.toEntity(bannerDTO);
-//        banner.setId(id);
-//        bannerRepository.save(banner);
-//        return bannerMapper.toDTO(banner);
-//    }
-//
-//    @Override
-//    public void delete(int id) {
-//        BannerEntity banner = bannerRepository.findById(id).get();
-//        bannerRepository.delete(banner);
-//    }
-//
-//    @Override
-//    public List<BannerDTO> findAll() {
-//        List<BannerEntity> listBanner = bannerRepository.findAll();
-//        return listBanner.stream()
-//                .map(bannerMapper::toDTO)
-//                .collect(Collectors.toList());
-//    }
-//
-//
-//}
+package com.ivymodal.service.impl;
+
+import com.ivymodal.dto.Banner.request.BannerRequest;
+import com.ivymodal.dto.Banner.response.BannerResponse;
+import com.ivymodal.entity.Banner;
+import com.ivymodal.exception.AppException;
+import com.ivymodal.exception.ErrorCode;
+import com.ivymodal.mapper.BannerMapper;
+import com.ivymodal.repository.BannerRepository;
+import com.ivymodal.service.IBannerService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
+public class BannerService implements IBannerService {
+    BannerRepository bannerRepository;
+    BannerMapper bannerMapper;
+
+    @Override
+    public BannerResponse createBanner(BannerRequest request) {
+        return bannerMapper.toBannerResponse(bannerRepository.save(bannerMapper.toBanner(request)));
+    }
+
+    @Override
+    public BannerResponse updateBanner(String bannerId, BannerRequest request) {
+        Banner banner = bannerRepository.findById(bannerId)
+                .orElseThrow(() -> new AppException(ErrorCode.BANNER_NOT_FOUND));
+        bannerMapper.updateBanner(banner, request);
+        return bannerMapper.toBannerResponse(bannerRepository.save(banner));
+    }
+
+    @Override
+    public void deleteBanner(String[] bannerId) {
+        for (String banner : bannerId) {
+            bannerRepository.deleteById(banner);
+        }
+    }
+
+    @Override
+    public List<BannerResponse> findAllBanner() {
+        return bannerMapper.toBannerResponse(bannerRepository.findAll());
+    }
+
+    @Override
+    public BannerResponse findOneBanner(String bannerId) {
+        Banner banner = bannerRepository.findById(bannerId)
+                .orElseThrow(() -> new AppException(ErrorCode.BANNER_NOT_FOUND));
+        return bannerMapper.toBannerResponse(banner);
+    }
+}

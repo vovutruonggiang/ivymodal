@@ -1,39 +1,60 @@
-//package com.ivymodal.service.impl;
-//
-//import com.ivymodal.dto.DiscountDTO;
-//import com.ivymodal.entity.DiscountEntity;
-//import com.ivymodal.mapper.DiscountMapper;
-//import com.ivymodal.repository.DiscountRepository;
-//import com.ivymodal.service.IDiscountService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class DiscountService implements IDiscountService {
-//
-//    @Autowired
-//    private DiscountRepository discountRepository;
-//    @Autowired
-//    private DiscountMapper discountMapper;
-//
-//    @Override
-//    public DiscountDTO createDiscount(DiscountDTO discountDTO) {
-//        DiscountEntity discountEntity = discountMapper.toEntity(discountDTO);
-//        discountEntity = discountRepository.save(discountEntity);
-//        return discountMapper.toDTO(discountEntity);
-//    }
-//
-//    @Override
-//    public DiscountDTO updateDiscount(int id, DiscountDTO discountDTO) {
-//        DiscountEntity discountEntity = discountRepository.findById(id).get();
-//        discountEntity = discountMapper.toEntity(discountDTO);
-//        discountEntity.setId(id);
-//        discountEntity = discountRepository.save(discountEntity);
-//        return discountMapper.toDTO(discountEntity);
-//    }
-//
-//    @Override
-//    public void deleteDiscount(int id) {
-//        discountRepository.deleteById(id);
-//    }
-//}
+package com.ivymodal.service.impl;
+
+import com.ivymodal.dto.Discount.request.DiscountRequest;
+import com.ivymodal.dto.Discount.response.DiscountResponse;
+import com.ivymodal.entity.Discount;
+import com.ivymodal.exception.AppException;
+import com.ivymodal.exception.ErrorCode;
+import com.ivymodal.mapper.DiscountMapper;
+import com.ivymodal.repository.DiscountRepository;
+import com.ivymodal.service.IDiscountService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
+public class DiscountService implements IDiscountService {
+
+    DiscountRepository discountRepository;
+    DiscountMapper discountMapper;
+
+    @Override
+    public DiscountResponse createDiscount(DiscountRequest request) {
+        if(discountRepository.existsByName(request.getName())){
+            throw new AppException(ErrorCode.DISCOUNT_EXISTED);
+        }
+        return discountMapper.toDiscountResponse(discountRepository.save(discountMapper.toDiscount(request)));
+    }
+
+    @Override
+    public DiscountResponse updateDiscount(String discountId, DiscountRequest request) {
+        Discount discount = discountRepository.findById(discountId)
+                .orElseThrow(() -> new AppException(ErrorCode.DISCOUNT_NOT_FOUND));
+        discountMapper.updateDiscount(discount,request);
+        return discountMapper.toDiscountResponse(discountRepository.save(discount));
+    }
+
+    @Override
+    public void deleteDiscount(String[] discountIds) {
+        for(String discount : discountIds){
+            discountRepository.deleteById(discount);
+        }
+    }
+
+    @Override
+    public List<DiscountResponse> getAllDiscounts() {
+        return discountMapper.toDiscountResponsesList(discountRepository.findAll());
+    }
+
+    @Override
+    public DiscountResponse getOneDiscount(String discountId) {
+        Discount discount = discountRepository.findById(discountId)
+                .orElseThrow(() -> new AppException(ErrorCode.DISCOUNT_NOT_FOUND));
+        return discountMapper.toDiscountResponse(discount);
+    }
+}

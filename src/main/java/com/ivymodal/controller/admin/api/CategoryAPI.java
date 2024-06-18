@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api-admin-category")
@@ -25,6 +26,13 @@ public class CategoryAPI {
         apiResponse.setResult(categoryService.getAllCategories());
         return apiResponse;
     }
+
+//    @GetMapping("/category1")
+//    public ApiResponse<List<CategoryResponse>> getCategory1(){
+//        ApiResponse<List<CategoryResponse>> apiResponse = new ApiResponse<>();
+//        apiResponse.setResult(categoryService.getCategory1());
+//        return apiResponse;
+//    }
 
     @GetMapping("/{categoryId}")
     public ApiResponse<CategoryResponse> getCategoryById(@PathVariable("categoryId") String categoryId){
@@ -53,5 +61,10 @@ public class CategoryAPI {
         categoryService.deleteCategory(request.getIds());
         apiResponse.setMessage("delete success");
         return apiResponse;
+    }
+
+    @GetMapping("/structured")
+    public Map<String, Map<String, List<Map<String, String>>>> getStructuredCategories() {
+        return categoryService.getCategories();
     }
 }

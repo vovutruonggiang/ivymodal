@@ -1,33 +1,33 @@
-//package com.ivymodal.service.impl;
-//
-//import com.ivymodal.dto.AddDiscountDTO;
-//import com.ivymodal.entity.AddDiscountEntity;
-//import com.ivymodal.mapper.AddDiscountMapper;
-//import com.ivymodal.repository.AddDiscountRepository;
-//import com.ivymodal.service.IAddDiscountService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.List;
-//@Service
-//public class AddDiscountService implements IAddDiscountService {
-//    @Autowired
-//    private AddDiscountRepository addDiscountRepository;
-//
-//    @Autowired
-//    private AddDiscountMapper addDiscountMapper;
-//
-//    @Override
-//    public List<AddDiscountDTO> createDiscount(List<AddDiscountDTO> addDiscountDTO) {
-//        List<AddDiscountEntity> addDiscountEntities = addDiscountMapper.toEntityList(addDiscountDTO);
-//        List<AddDiscountEntity> savedEntities = addDiscountRepository.saveAll(addDiscountEntities);
-//        return addDiscountMapper.toDTOList(savedEntities);
-//    }
-//
-//    @Override
-//    public void deleteDiscount(int[] ids) {
-//        for (int id : ids) {
-//            addDiscountRepository.deleteById(id);
-//        }
-//    }
-//}
+package com.ivymodal.service.impl;
+
+import com.ivymodal.dto.Discount.request.AddDiscountRequest;
+import com.ivymodal.dto.Discount.response.AddDiscountResponse;
+import com.ivymodal.mapper.AddDiscountMapper;
+import com.ivymodal.repository.AddDiscountRepository;
+import com.ivymodal.service.IAddDiscountService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+@Service
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
+public class AddDiscountService implements IAddDiscountService {
+
+    AddDiscountRepository addDiscountRepository;
+    AddDiscountMapper addDiscountMapper;
+
+    @Override
+    public List<AddDiscountResponse> createDiscount(List<AddDiscountRequest> requests) {
+
+        return null;
+    }
+
+    @Override
+    public void deleteDiscount(String[] adddiscountId) {
+
+    }
+
+}

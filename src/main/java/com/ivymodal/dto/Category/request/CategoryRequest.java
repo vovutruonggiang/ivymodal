@@ -9,5 +9,5 @@ import lombok.experimental.FieldDefaults;
 public class CategoryRequest {
     String name;
     String menu_link;
-    String menu_parent_id;
+    String menuParentId;
 }

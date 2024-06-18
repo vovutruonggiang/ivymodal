@@ -13,7 +13,11 @@ public enum ErrorCode {
     VARIANT_EXISTED(1007,"Varant existed"),
     VARIANT_NOT_FOUND(1008,"varant not found"),
     IMAGES_EXISTED(1007,"Images existed"),
-    IMAGES_NOT_FOUND(1008,"Images not found");
+    IMAGES_NOT_FOUND(1008,"Images not found"),
+    BANNER_EXISTED(1009,"Banner existed"),
+    BANNER_NOT_FOUND(1008,"Banner not found"),
+    DISCOUNT_EXISTED(1010,"Discount existed"),
+    DISCOUNT_NOT_FOUND(1011,"Discount not found");
 
     ErrorCode(int code, String message) {
         this.code = code;

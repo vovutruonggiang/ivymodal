@@ -15,6 +15,7 @@ public class Product extends BaseEntity {
     String name;
     String description;
     String thumbnail;
+    Boolean isPromoted = false;
 
     @ManyToOne
     @JoinColumn(name = "id_category")
@@ -26,6 +27,6 @@ public class Product extends BaseEntity {
     @OneToMany(mappedBy = "product")
     List<ProductImage> productImage;
 
-//    @OneToMany(mappedBy = "product")
-//    List<AddDiscountEntity> addDiscount;
+    @OneToMany(mappedBy = "product")
+    List<AddDiscount> addDiscount;
 }

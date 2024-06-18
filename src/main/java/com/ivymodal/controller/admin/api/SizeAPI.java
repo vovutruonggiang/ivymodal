@@ -49,8 +49,11 @@ public class SizeAPI {
     }
 
     @DeleteMapping
-    public void deleteSize(@RequestBody SizeDeleteRequest request){
+    public ApiResponse<SizeResponse> deleteSize(@RequestBody SizeDeleteRequest request){
+        ApiResponse<SizeResponse> apiResponse = new ApiResponse<>();
         sizeService.deleteSize(request.getIds());
+        apiResponse.setResult(null);
+        apiResponse.setMessage("delete success");
+        return apiResponse;
     }
-
 }
