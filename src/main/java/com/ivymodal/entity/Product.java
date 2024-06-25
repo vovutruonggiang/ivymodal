@@ -21,6 +21,14 @@ public class Product extends BaseEntity {
     @JoinColumn(name = "id_category")
     Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "id_category_2")
+    Category category2;
+
+    @ManyToOne
+    @JoinColumn(name = "id_category_3")
+    Category category3;
+
     @OneToMany(mappedBy = "product")
     List<ProductVariant> productVariant;
 

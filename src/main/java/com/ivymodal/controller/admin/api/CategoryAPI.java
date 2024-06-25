@@ -4,10 +4,7 @@ import com.ivymodal.dto.ApiResponse;
 import com.ivymodal.dto.Category.request.CategoryDeleteRequest;
 import com.ivymodal.dto.Category.request.CategoryRequest;
 import com.ivymodal.dto.Category.response.CategoryResponse;
-import com.ivymodal.service.ICategoryService;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
+import com.ivymodal.service.admin.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

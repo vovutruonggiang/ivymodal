@@ -4,7 +4,7 @@ import com.ivymodal.dto.ApiResponse;
 import com.ivymodal.dto.Discount.request.DiscountDeleteRequest;
 import com.ivymodal.dto.Discount.request.DiscountRequest;
 import com.ivymodal.dto.Discount.response.DiscountResponse;
-import com.ivymodal.service.impl.DiscountService;
+import com.ivymodal.service.admin.impl.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -4,7 +4,7 @@ import com.ivymodal.dto.ApiResponse;
 import com.ivymodal.dto.Product.request.ProductDeleteRequest;
 import com.ivymodal.dto.Product.request.ProductRequest;
 import com.ivymodal.dto.Product.response.ProductResponse;
-import com.ivymodal.service.impl.ProductService;
+import com.ivymodal.service.admin.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

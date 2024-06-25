@@ -4,7 +4,7 @@ import com.ivymodal.dto.ApiResponse;
 import com.ivymodal.dto.Size.request.SizeDeleteRequest;
 import com.ivymodal.dto.Size.request.SizeRequest;
 import com.ivymodal.dto.Size.response.SizeResponse;
-import com.ivymodal.service.ISizeService;
+import com.ivymodal.service.admin.ISizeService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

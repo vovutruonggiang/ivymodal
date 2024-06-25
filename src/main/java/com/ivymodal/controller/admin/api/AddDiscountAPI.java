@@ -3,8 +3,8 @@ package com.ivymodal.controller.admin.api;
 import com.ivymodal.dto.ApiResponse;
 import com.ivymodal.dto.Product.response.ProductDiscountActiveResponse;
 import com.ivymodal.dto.Product.response.ProductDiscountWithoutActiveResponse;
-import com.ivymodal.service.IAddDiscountService;
-import com.ivymodal.service.IProductService;
+import com.ivymodal.service.admin.IAddDiscountService;
+import com.ivymodal.service.admin.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

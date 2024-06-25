@@ -1,13 +1,12 @@
 package com.ivymodal.controller.admin.api;
 
 import com.ivymodal.dto.ApiResponse;
-import com.ivymodal.dto.Category.request.CategoryDeleteRequest;
 import com.ivymodal.dto.Category.response.CategoryResponse;
 import com.ivymodal.dto.Color.request.ColorDeleteRequest;
 import com.ivymodal.dto.Color.request.ColorRequest;
 import com.ivymodal.dto.Color.response.ColorResponse;
-import com.ivymodal.service.IColorService;
-import com.ivymodal.service.impl.CategoryService;
+import com.ivymodal.service.admin.IColorService;
+import com.ivymodal.service.admin.impl.CategoryService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

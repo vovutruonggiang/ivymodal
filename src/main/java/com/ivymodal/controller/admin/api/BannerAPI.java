@@ -4,8 +4,7 @@ import com.ivymodal.dto.ApiResponse;
 import com.ivymodal.dto.Banner.request.BannerDeleteRequest;
 import com.ivymodal.dto.Banner.request.BannerRequest;
 import com.ivymodal.dto.Banner.response.BannerResponse;
-import com.ivymodal.mapper.BannerMapper;
-import com.ivymodal.service.IBannerService;
+import com.ivymodal.service.admin.IBannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

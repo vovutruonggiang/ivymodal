@@ -10,14 +10,17 @@ public enum ErrorCode {
     COLOR_NOT_FOUND(1006,"Color not found"),
     PRODUCT_EXISTED(1007,"Product existed"),
     PRODUCT_NOT_FOUND(1008,"Product not found"),
-    VARIANT_EXISTED(1007,"Varant existed"),
-    VARIANT_NOT_FOUND(1008,"varant not found"),
-    IMAGES_EXISTED(1007,"Images existed"),
-    IMAGES_NOT_FOUND(1008,"Images not found"),
-    BANNER_EXISTED(1009,"Banner existed"),
-    BANNER_NOT_FOUND(1008,"Banner not found"),
-    DISCOUNT_EXISTED(1010,"Discount existed"),
-    DISCOUNT_NOT_FOUND(1011,"Discount not found");
+    VARIANT_EXISTED(1009,"Varant existed"),
+    VARIANT_NOT_FOUND(1010,"varant not found"),
+    IMAGES_EXISTED(1011,"Images existed"),
+    IMAGES_NOT_FOUND(1012,"Images not found"),
+    BANNER_EXISTED(1013,"Banner existed"),
+    BANNER_NOT_FOUND(1014,"Banner not found"),
+    DISCOUNT_EXISTED(1015,"Discount existed"),
+    DISCOUNT_NOT_FOUND(1016,"Discount not found"),
+    ACCOUNT_USER_EXISTED(1017,"Account user existed"),
+    ACCOUNT_USER_NOT_FOUND(1018,"Account user not found"),
+    USER_NOT_EXISTED(1019,"User not existed");
 
     ErrorCode(int code, String message) {
         this.code = code;
