@@ -1,5 +1,5 @@
 $.ajax({
-    url: 'api-website-product',
+    url: 'api-website-product/women',
     type: 'GET',
     success: function(response) {
         if (response && response.result) {
@@ -27,7 +27,9 @@ $.ajax({
                 // Tạo mã HTML cho mỗi sản phẩm
                 var productHtml = '<div class="col">' +
                     '<div class="card shadow-sm">' +
+                    '<a href="product-detail?id=' + encodeURIComponent(product.id) + '">' +
                     '<img src="' + thumbnailUrl + '" class="bd-placeholder-img card-img-top" width="100%" height="300">' +
+                    '</a>'+
                     '<div class="card-body">' +
                     '<h5 class="card-title">' + productName + '</h5>' +
                     '<h5 class="card-title">' + productPrice + '</h5>' +

@@ -1,12 +1,21 @@
+// Lấy query parameters từ URL hiện tại
+const urlParams = new URLSearchParams(window.location.search);
+
+// Lấy giá trị của tham số 'id' từ query parameters
+const categoryId = urlParams.get('category');
+
+
+// Gửi request AJAX đến API với categoryId
 $.ajax({
-    url: 'api-website-product/men',
+    url: 'api-website-product/by-category/' + categoryId, // Thay đổi URL endpoint tương ứng với API của bạn
     type: 'GET',
-    success: function(response) {
+    success: function (response) {
+        console.log(response)
         if (response && response.result) {
             var products = response.result;
             var productsHtml = '';
 
-            products.forEach(function(product) {
+            products.forEach(function (product) {
                 var productName = product.name;
                 var productPrice = product.productVariants[0].price; // Giả sử giá cố định cho biến thể đầu tiên
                 var thumbnailUrl = '/images/' + product.thumbnail; // Sử dụng đường dẫn tương đối từ thư mục tài nguyên tĩnh của ứng dụng Spring Boot
@@ -15,7 +24,7 @@ $.ajax({
                 // Container cho các nút màu
                 var colorButtonsContainer = '<div class="color-buttons-container">';
 
-                product.productVariants.forEach(function(variant) {
+                product.productVariants.forEach(function (variant) {
                     // Tạo nút button cho màu sắc
                     var colorButtonHtml = '<button type="button" style="background-color:' + variant.color + '; width: 20px; height: 20px; border: none; border-radius: 50%; margin-right: 5px;"></button>';
 
@@ -23,6 +32,7 @@ $.ajax({
                 });
 
                 colorButtonsContainer += '</div>'; // Đóng container
+
                 // Tạo mã HTML cho mỗi sản phẩm
                 var productHtml = '<div class="col">' +
                     '<div class="card shadow-sm">' +
@@ -43,11 +53,12 @@ $.ajax({
                     '</div>' +
                     '</div>' +
                     '</div>';
+
                 productsHtml += productHtml;
             });
 
-            // Thêm các sản phẩm vào phần tử có id là 'product-container' (hoặc thay thế id tương ứng trong giao diện của bạn)
-            $('#productNam-container').html(productsHtml);
+            // Thêm các sản phẩm vào phần tử có id là 'productNu-container' (hoặc thay thế id tương ứng trong giao diện của bạn)
+            $('#productByCategory-container').html(productsHtml);
         }
     }
 });

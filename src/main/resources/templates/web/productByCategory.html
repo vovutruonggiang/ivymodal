@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="web/fragments/head :: head"></head>
+<style>
+
+    .color-buttons-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px; /* Khoảng cách dưới cùng để tách các nút màu khỏi phần nội dung khác */
+    }
+    footer {
+        background-color: #f8f9fa;
+        padding: 40px 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .footer-content {
+        max-width: 1140px;
+        margin: 0 auto;
+    }
+    .dropdown-submenu {
+        position: relative;
+    }
+
+    .dropdown-submenu .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -1px;
+    }
+
+</style>
+
+<body>
+<div class="container">
+    <div th:replace="web/fragments/menu :: menu"></div>
+    <div class="row">
+        <div class="col-2">
+            loc san pham
+        </div>
+
+        <div class="col-md-10 album py-5">
+            <div class="container">
+                <div class="alert alert-dark" role="alert">
+                    Thời trang nam
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3" id="productByCategory-container">
+                    <!-- Sản phẩm sẽ được thêm vào đây bằng mã JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="web/fragments/footer :: footer"></footer>
+
+    <div th:replace="web/fragments/script :: script"></div>
+    <script src="/web/app/categoryProductByCategory.js"></script>
+</div>
+</body>
+
+</html>

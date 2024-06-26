@@ -5,10 +5,11 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 public class CategoryResponse extends BaseDTO {
     String name;
-    String menu_link;
-    String menuParentId;
+    List<CategoryResponse> subCategories;
 }

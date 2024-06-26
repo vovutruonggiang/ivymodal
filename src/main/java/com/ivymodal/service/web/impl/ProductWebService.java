@@ -7,24 +7,44 @@ import com.ivymodal.entity.Product;
 import com.ivymodal.entity.ProductVariant;
 import com.ivymodal.repository.CategoryRepository;
 import com.ivymodal.repository.ProductRepository;
+import com.ivymodal.service.web.IProductWebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class ProductWebService  {
+public class ProductWebService  implements IProductWebService {
     @Autowired
     private ProductRepository productRepository;
 
     @Autowired
     private CategoryRepository categoryRepository;
-    
-    public List<ProductDto> getAllProduct() {
-        Optional<Category> category = categoryRepository.findCategoryByName("nu");
-        List<Product> products = productRepository.findByCategoryId(category.get().getId());
-        List<ProductDto> productDtos = new ArrayList<>();
 
+    public List<ProductDto> getAllProductWomen(){
+        return getCategoryProduct("nu");
+    }
+
+    public List<ProductDto> getAllProductMen(){
+        return getCategoryProduct("nam");
+    }
+
+    @Override
+    public List<ProductDto> getAllProductByCategory(String id_Category) {
+        return getCategoryProduct(id_Category);
+    }
+
+    public List<ProductDto> getCategoryProduct(String categoryName) {
+        Optional<Category> category = Optional.empty();
+        List<Product> products = new ArrayList<>();
+        if(categoryName.equals("nam")||categoryName.equals("nu")){
+            category = categoryRepository.findCategoryByName(categoryName);
+            products = productRepository.findByCategoryId(category.get().getId());
+        }else{
+            products = productRepository.findByCategoryId3(categoryName);
+        }
+
+        List<ProductDto> productDtos = new ArrayList<>();
         for (Product product : products) {
             ProductDto productDto = new ProductDto();
             productDto.setId(product.getId());
