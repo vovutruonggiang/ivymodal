@@ -1,8 +1,9 @@
 package com.ivymodal.dto.Product.response;
 
 import com.ivymodal.dto.BaseDTO;
-import com.ivymodal.dto.ProductImages.response.ProductImagesResponse;
-import com.ivymodal.dto.ProductVariant.response.VariantDto;
+import com.ivymodal.dto.Color.response.ColorProductDetailResponse;
+import com.ivymodal.dto.Color.response.ColorResponse;
+import com.ivymodal.dto.ProductVariant.response.VariantProductDetailResponse;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -16,6 +17,6 @@ public class ProductDetail extends BaseDTO {
     String description;
     String thumbnail;
     String id_category;
-    List<VariantDto> productVariants;
-    List<ProductImagesResponse> productImages;
+    private List<VariantProductDetailResponse> productVariants;
+
 }

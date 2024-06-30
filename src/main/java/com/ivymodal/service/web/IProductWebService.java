@@ -1,5 +1,6 @@
 package com.ivymodal.service.web;
 
+import com.ivymodal.dto.Product.response.ProductDetail;
 import com.ivymodal.dto.Product.response.ProductDto;
 
 import java.util.List;

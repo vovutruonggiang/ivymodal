@@ -20,5 +20,4 @@ public class ProductResponse extends BaseDTO {
     CategoryResponse category;
     List<ProductVariantResponse> productVariants;
     List<ProductImagesResponse> productImages;
-
 }

@@ -77,7 +77,7 @@ public class ProductWebService  implements IProductWebService {
                 }
             }
             productDto.setProductVariants(variantDtos);
-            productDtos.add(productDto);
+            productDtos .add(productDto);
         }
         return productDtos;
     }

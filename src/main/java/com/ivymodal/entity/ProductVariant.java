@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
 @Entity
@@ -27,6 +29,6 @@ public class ProductVariant extends BaseEntity{
     int stock;
 
 
-//    @OneToMany(mappedBy = "productVariant")
-//    List<CartEntity> cart;
+    @OneToMany(mappedBy = "productVariant")
+    List<Cart> cart;
 }
