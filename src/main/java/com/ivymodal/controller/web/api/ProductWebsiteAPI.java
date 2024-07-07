@@ -3,11 +3,8 @@ package com.ivymodal.controller.web.api;
 import com.ivymodal.dto.ApiResponse;
 import com.ivymodal.dto.Product.response.ProductDetail;
 import com.ivymodal.dto.Product.response.ProductDto;
-import com.ivymodal.dto.Product.response.ProductResponse;
-import com.ivymodal.service.admin.impl.ProductService;
 import com.ivymodal.service.web.IProductDetailService;
 import com.ivymodal.service.web.IProductWebService;
-import com.ivymodal.service.web.impl.ProductWebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

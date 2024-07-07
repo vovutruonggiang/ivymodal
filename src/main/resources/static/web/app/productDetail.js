@@ -57,7 +57,6 @@ $(document).ready(function() {
                     // Tìm và cập nhật hình ảnh thumbnail từ biến thể sản phẩm đã chọn
                     const selectedVariant = product.productVariants.find(variant => variant.color === selectedColor);
                     if (selectedVariant) {
-                        thumbnailImage.src = '/images/' + selectedVariant.image_url;
 
                         // Cập nhật kích thước tương ứng
                         sizesContainer.empty(); // Làm trống phần tử chứa kích thước trước khi thêm mới
@@ -74,6 +73,7 @@ $(document).ready(function() {
                             const sizeInfo = selectedVariant.size.find(s => s.size === selectedSize);
                             if (sizeInfo) {
                                 $('#sp_gia').text(formatCurrency(sizeInfo.price));
+                                $('.price span').text(formatCurrency(sizeInfo.price)); // Thêm dòng này để cập nhật giá tiền
                                 variantIdInput.val(sizeInfo.variantId); // Đặt mã biến thể vào input
                                 updateStockCount(sizeInfo.stock); // Cập nhật số lượng tồn kho
                             }
@@ -138,8 +138,19 @@ $(document).ready(function() {
         quantity = Math.max(quantity, 1); // Mặc định chọn số lượng là 1 và không giảm dưới mức này
         quantityInput.val(quantity);
     });
-});
 
+    // Xử lý sự kiện khi người dùng nhấn vào "Mua ngay"
+    $('.like').on('click', function(event) {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của nút
+        var quantity = $('#soluong').val();
+
+        if (quantity === '0') {
+            alert("Sản phẩm đã hết hàng");
+        } else {
+            createCartWithoutAlert();
+        }
+    });
+});
 
 // Lấy query parameters từ URL hiện tại
 const urlParams = new URLSearchParams(window.location.search);
@@ -177,3 +188,35 @@ function createCart() {
         }
     });
 }
+
+function createCartWithoutAlert() {
+    var idProductVariant = $('#idProductVariant').val();
+    var idUser = $('#id_user').val();
+    var quantity = $('#soluong').val();
+
+    // Kiểm tra nếu số lượng mua là 0 thì không thực hiện AJAX request
+    if (quantity === '0') {
+        return;
+    }
+
+    $.ajax({
+        url: 'api-web-cart',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            idProduct: idProduct,
+            idUser: idUser,
+            idProductVariant: idProductVariant,
+            quantity: quantity
+        }),
+        dataType: 'json',
+        success: function (result) {
+            // Chuyển hướng sang trang giỏ hàng hoặc trang khác tùy ý
+            window.location.href = '/pay'; // Thay đổi đường dẫn tới trang giỏ hàng của bạn
+        },
+        error: function (error) {
+            alert("Thêm giỏ hàng thất bại");
+        }
+    });
+}
+

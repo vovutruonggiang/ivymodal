@@ -1,6 +1,7 @@
 package com.ivymodal.repository;
 
 import com.ivymodal.dto.Product.response.ProductDiscountActiveResponse;
+import com.ivymodal.entity.Cart;
 import com.ivymodal.entity.Category;
 import com.ivymodal.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,6 +30,5 @@ public interface ProductRepository extends JpaRepository<Product,String> {
 
     @Query("SELECT p FROM Product p WHERE p.category3.id = :idCategory3")
     List<Product> findByCategoryId3(String idCategory3);
-
 
 }

@@ -1,4 +1,4 @@
-package com.ivymodal.dto.Product.response;
+package com.ivymodal.dto.Users.response;
 
 import com.ivymodal.dto.BaseDTO;
 import lombok.AccessLevel;
@@ -7,7 +7,5 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductCartResponse extends BaseDTO {
-    String name;
-    String thumbnail;
+public class UserCartResponse extends BaseDTO {
 }

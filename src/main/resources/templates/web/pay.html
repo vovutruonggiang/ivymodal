@@ -32,6 +32,50 @@
         margin-top: -1px;
     }
 
+    .color-circle {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-color: red; /* Bạn có thể thay đổi màu sắc ở đây */
+        margin-right: 5px; /* Khoảng cách giữa hình tròn và chữ "color" */
+        vertical-align: middle; /* Canh giữa với chữ */
+    }
+
+    .price-container {
+        display: flex;
+        justify-content: center;
+        text-align: center; /* Đảm bảo rằng văn bản bên trong span cũng được căn giữa */
+        margin-top: 30%;
+    }
+
+
+    .quantity-input {
+        max-width: 120px;
+        margin: auto;
+        margin-top: 50px;
+    }
+
+    .input-group-text {
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        cursor: pointer;
+    }
+
+    .input-group-text:hover {
+        background-color: #e2e6ea;
+    }
+
+    .form-control {
+        text-align: center;
+        border: 1px solid #ced4da;
+    }
+
+    .btnDelete{
+        display: flex;
+        justify-content: center;
+        margin-top: 60%;
+    }
+
 </style>
 
 <body>
@@ -43,46 +87,27 @@
     <!-- Thông tin sản phẩm -->
     <div class="card mb-4">
         <div class="card-header">
-            Thông tin sản phẩm
-        </div>
-        <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
-                    <img src="https://via.placeholder.com/150" class="img-fluid" alt="Product Image">
+                <div class="col-md-5 ">
+                    <input type="checkbox">
+                    <label> Sản phẩm</label>
                 </div>
-                <div class="col-md-8">
-                    <h5 class="card-title">Tên sản phẩm</h5>
-                    <p class="card-text">Mô tả ngắn về sản phẩm và các thông tin khác.</p>
-                    <p class="card-text">Giá: $99.99</p>
+                <div class="col-md-2 " style="text-align: center">
+                    <label>Đơn giá</label>
+                </div>
+                <div class="col-md-2 " style="text-align: center">
+                    <label>Số lượng</label>
+                </div>
+                <div class="col-md-2 " style="text-align: center">
+                    <label>Số tiền</label>
+                </div>
+                <div class="col-md-1 " style="text-align: center">
+                    <label>Thao tác</label>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Địa chỉ giao hàng -->
-    <div class="card mb-4">
-        <div class="card-header">
-            Địa chỉ giao hàng
-        </div>
         <div class="card-body">
-            <form>
-                <div class="mb-3">
-                    <label for="fullName" class="form-label">Họ và tên</label>
-                    <input type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên">
-                </div>
-                <div class="mb-3">
-                    <label for="address" class="form-label">Địa chỉ</label>
-                    <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
-                </div>
-                <div class="mb-3">
-                    <label for="city" class="form-label">Thành phố</label>
-                    <input type="text" class="form-control" id="city" placeholder="Nhập thành phố">
-                </div>
-                <div class="mb-3">
-                    <label for="zip" class="form-label">Mã bưu điện</label>
-                    <input type="text" class="form-control" id="zip" placeholder="Nhập mã bưu điện">
-                </div>
-            </form>
+
         </div>
     </div>
 
@@ -91,9 +116,15 @@
         <div class="card-header">
             Hình thức thanh toán
         </div>
-        <div class="card-body">
+        <div class="payment" style="margin-left: 20px;margin-top: 15px;margin-bottom: 15px">
             <div class="form-check mb-3">
-                <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" checked>
+                <input class="form-check-input" type="radio" name="paymentMethod" id="tienmat" checked>
+                <label class="form-check-label" for="tienmat">
+                    Tiền mặt
+                </label>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard">
                 <label class="form-check-label" for="creditCard">
                     Thẻ tín dụng
                 </label>
@@ -104,6 +135,7 @@
                     PayPal
                 </label>
             </div>
+
         </div>
     </div>
 
@@ -115,7 +147,25 @@
     <footer th:replace="web/fragments/footer :: footer"></footer>
 
     <div th:replace="web/fragments/script :: script"></div>
+
+    <script src="/web/app/pay.js"></script>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#button-decrease').click(function () {
+            var quantity = parseInt($('#quantity').val());
+            if (quantity > 1) {
+                $('#quantity').val(quantity - 1);
+            }
+        });
+
+        $('#button-increase').click(function () {
+            var quantity = parseInt($('#quantity').val());
+            $('#quantity').val(quantity + 1);
+        });
+    });
+</script>
 </body>
 
 </html>

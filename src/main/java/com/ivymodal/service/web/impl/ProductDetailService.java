@@ -1,14 +1,8 @@
 package com.ivymodal.service.web.impl;
 
-import com.ivymodal.dto.Color.response.ColorProductDetailResponse;
-import com.ivymodal.dto.Color.response.ColorResponse;
 import com.ivymodal.dto.Product.response.ProductDetail;
-import com.ivymodal.dto.Product.response.ProductDto;
-import com.ivymodal.dto.ProductImages.response.ProductImagesResponse;
-import com.ivymodal.dto.ProductVariant.response.VariantDto;
 import com.ivymodal.dto.ProductVariant.response.VariantProductDetailResponse;
 import com.ivymodal.dto.Size.response.SizeProductDetailResponse;
-import com.ivymodal.entity.Color;
 import com.ivymodal.entity.Product;
 import com.ivymodal.entity.ProductImage;
 import com.ivymodal.entity.ProductVariant;
